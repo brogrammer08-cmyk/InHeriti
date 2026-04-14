@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties - InHeriti</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/properties.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="properties-hero">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/logo.png" alt="InHeriti Logo" class="logo-img">
+                InHeriti
+            </div>
+            <ul class="nav-links">
+                <li><a href="main.html">Home</a></li>
+                <li><a href="properties.html" class="active">Properties</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <details class="auth-menu">
+                <summary class="auth-menu-toggle" aria-label="Open account menu">
+                    <i class="fas fa-bars"></i>
+                </summary>
+                <div class="auth-menu-dropdown">
+                    <a href="admin.html" class="auth-link admin-only-link" hidden>Admin Panel</a>
+                    <a href="dashboard.html" class="auth-link logged-in-only-link" hidden>Dashboard</a>
+                    <a href="login.html" class="auth-link">Login</a>
+                    <a href="register.html" class="auth-link auth-link-primary">Register</a>
+                </div>
+            </details>
+        </nav>
+        <div class="hero-content">
+            <h1>Find Your Dream Property</h1>
+            <p>Discover thousands of properties from trusted real estate agencies</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="properties-container">
+        <!-- Sidebar Filters -->
+        <aside class="filters-sidebar">
+            <h3><i class="fas fa-sliders-h"></i> Filters</h3>
+            
+            <div class="filter-section">
+                <h4>Listing Type</h4>
+                <label class="checkbox-filter">
+                    <input type="checkbox" id="filterForSale" value="for-sale">
+                    <span>For Sale</span>
+                </label>
+                <label class="checkbox-filter">
+                    <input type="checkbox" id="filterForRent" value="for-rent">
+                    <span>For Rent</span>
+                </label>
+            </div>
+
+            <div class="filter-section">
+                <h4>Property Type</h4>
+                <label class="checkbox-filter">
+                    <input type="checkbox" id="filterApartment" value="Apartment">
+                    <span>Apartment</span>
+                </label>
+                <label class="checkbox-filter">
+                    <input type="checkbox" id="filterVilla" value="Villa">
+                    <span>Villa</span>
+                </label>
+                <label class="checkbox-filter">
+                    <input type="checkbox" id="filterHouse" value="House">
+                    <span>House</span>
+                </label>
+                <label class="checkbox-filter">
+                    <input type="checkbox" id="filterCommercial" value="Commercial">
+                    <span>Commercial</span>
+                </label>
+                <label class="checkbox-filter">
+                    <input type="checkbox" id="filterLand" value="Land">
+                    <span>Land</span>
+                </label>
+            </div>
+
+            <div class="filter-section">
+                <h4>Price Range</h4>
+                <div class="price-range">
+                    <input type="number" id="minPrice" placeholder="Min €">
+                    <span>-</span>
+                    <input type="number" id="maxPrice" placeholder="Max €">
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h4>Size (m²)</h4>
+                <div class="size-range">
+                    <input type="number" id="minSize" placeholder="Min m²">
+                    <span>-</span>
+                    <input type="number" id="maxSize" placeholder="Max m²">
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h4>Bedrooms</h4>
+                <select id="bedroomsFilter">
+                    <option value="">Any</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+                </select>
+            </div>
+
+            <button class="btn-apply-filters" id="applyFiltersBtn">
+                <i class="fas fa-search"></i> Apply Filters
+            </button>
+            <button class="btn-reset-filters" id="resetFiltersBtn">
+                <i class="fas fa-undo"></i> Reset All
+            </button>
+        </aside>
+
+        <!-- Properties Grid -->
+        <main class="properties-main">
+            <div class="results-header">
+                <div class="results-count">
+                    <i class="fas fa-home"></i>
+                    <span id="propertyCount">0</span> properties found
+                </div>
+                <div class="sort-options">
+                    <label>Sort by:</label>
+                    <select id="sortProperties">
+                        <option value="newest">Newest First</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="size-small">Size: Small to Large</option>
+                        <option value="size-large">Size: Large to Small</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="propertiesGrid" class="properties-grid">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i> Loading properties...
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <button id="prevPageBtn" disabled><i class="fas fa-chevron-left"></i> Previous</button>
+                <span id="pageInfo">Page 1</span>
+                <button id="nextPageBtn" disabled>Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Property Details Modal -->
+    <div id="propertyModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="modalTitle">Property Details</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="propertyModalBody">
+                <!-- Property details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Agent Modal - Simplified (NO FORM) -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-building"></i> Contact Agent</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="contactModalBody">
+                <!-- Agent contact info will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>InHeriti</h3>
+                <p>Your trusted partner in finding the perfect property. Making real estate dreams come true since 2010.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="properties.html">Properties</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe for property updates</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email" aria-label="Email for newsletter">
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 InHeriti Real Estate. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth-menu.js"></script>
+    <script src="js/properties.js"></script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - InHeriti</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="icon" type="image/png" href="./images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-navbar">
+        <div class="nav-brand">
+            <i class="fas fa-building"></i>
+            <span>InHeriti</span>
+        </div>
+        <ul class="top-nav-links">
+            <li><a href="main.html">Home</a></li>
+            <li><a href="properties.html">Properties</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        </ul>
+        <div class="nav-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search your properties...">
+        </div>
+        <div class="nav-user">
+            <div class="user-avatar" id="userAvatar">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="user-dropdown" id="userDropdown">
+                <div class="dropdown-header" id="dropdownUserInfo">
+                    <strong>Loading...</strong>
+                    <span>loading@email.com</span>
+                </div>
+                <a href="#" id="profileLink"><i class="fas fa-user"></i> Profile</a>
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-wrapper">
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+            <div class="welcome-text">
+                <h1>Welcome back, <span id="welcomeName">Property Owner</span>!</h1>
+                <p>Manage your properties, track performance, and grow your business</p>
+            </div>
+            <div class="welcome-stats">
+                <div class="stat-bubble">
+                    <i class="fas fa-home"></i>
+                    <span id="totalPropertiesCount">0</span>
+                    <small>Properties</small>
+                </div>
+                <div class="stat-bubble">
+                    <i class="fas fa-eye"></i>
+                    <span>0</span>
+                    <small>Views</small>
+                </div>
+                <div class="stat-bubble">
+                    <i class="fas fa-heart"></i>
+                    <span>0</span>
+                    <small>Inquiries</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="action-card" id="addPropertyQuickBtn">
+                <i class="fas fa-plus-circle"></i>
+                <h3>Add Property</h3>
+                <p>List a new property</p>
+            </button>
+            <button class="action-card" id="viewAllPropertiesBtn">
+                <i class="fas fa-list"></i>
+                <h3>My Listings</h3>
+                <p>View all properties</p>
+            </button>
+            <button class="action-card" id="analyticsBtn">
+                <i class="fas fa-chart-line"></i>
+                <h3>Analytics</h3>
+                <p>View performance</p>
+            </button>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs-container">
+            <button class="tab-btn active" data-tab="listings">
+                <i class="fas fa-home"></i> My Listings
+            </button>
+            <button class="tab-btn" data-tab="add">
+                <i class="fas fa-plus"></i> Add New
+            </button>
+            <button class="tab-btn" data-tab="analytics">
+                <i class="fas fa-chart-simple"></i> Analytics
+            </button>
+            <button class="tab-btn" data-tab="profile">
+                <i class="fas fa-building"></i> Business Profile
+            </button>
+        </div>
+
+        <!-- Tab Content: My Listings -->
+        <div id="listingsTab" class="tab-content active">
+            <div class="listings-header">
+                <h2><i class="fas fa-home"></i> Your Properties</h2>
+                <div class="listings-filters">
+                    <select id="filterType">
+                        <option value="all">All Types</option>
+                        <option value="for-sale">For Sale</option>
+                        <option value="for-rent">For Rent</option>
+                    </select>
+                    <select id="sortBy">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="price-low">Price: Low to High</option>
+                    </select>
+                </div>
+            </div>
+            <div id="propertiesContainer" class="properties-container">
+                <!-- Properties will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Tab Content: Add New Property -->
+        <div id="addTab" class="tab-content">
+            <div class="add-property-container">
+                <h2><i class="fas fa-plus-circle"></i> List a New Property</h2>
+                <p class="subtitle">Fill in the details below to publish your property</p>
+                
+                <form id="propertyForm" class="add-property-form">
+                    <div class="form-section">
+                        <h3>Basic Information</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Property Title *</label>
+                                <input type="text" id="propTitle" placeholder="e.g., Modern Apartment in City Center" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Property Type *</label>
+                                <select id="propType" required>
+                                    <option value="">Select type</option>
+                                    <option value="Apartment">🏢 Apartment</option>
+                                    <option value="Villa">🏡 Villa</option>
+                                    <option value="House">🏠 House</option>
+                                    <option value="Commercial">🏪 Commercial</option>
+                                    <option value="Land">🌾 Land</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Location & Size</h3>
+                        <div class="form-grid">
+                            <div class="input-group full-width">
+                                <label>Location *</label>
+                                <input type="text" id="propLocation" placeholder="Full address, city, country" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Square Meters *</label>
+                                <input type="number" id="propSqm" placeholder="m²" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Bedrooms</label>
+                                <input type="number" id="propBedrooms" placeholder="Number of bedrooms">
+                            </div>
+                            <div class="input-group">
+                                <label>Bathrooms</label>
+                                <input type="number" id="propBathrooms" placeholder="Number of bathrooms">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Pricing & Listing</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Listing Type *</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="listingType" value="for-sale" required> For Sale
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="listingType" value="for-rent"> For Rent
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Price *</label>
+                                <div class="price-input">
+                                    <span class="currency">€</span>
+                                    <input type="number" id="propPrice" placeholder="0" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Description</h3>
+                        <div class="input-group full-width">
+                            <textarea id="propDescription" rows="5" placeholder="Describe your property, its features, nearby amenities, etc..." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Photos</h3>
+                        <div class="upload-area" id="uploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop images here or click to upload</p>
+                            <small>Upload up to 5 images (JPG, PNG)</small>
+                            <input type="file" id="propImages" accept="image/*" multiple hidden>
+                        </div>
+                        <div id="imagePreviewGrid" class="image-preview-grid"></div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-check-circle"></i> Publish Property
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tab Content: Analytics -->
+        <div id="analyticsTab" class="tab-content">
+            <div class="analytics-container">
+                <h2><i class="fas fa-chart-line"></i> Performance Analytics</h2>
+                
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <div class="analytics-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="analytics-data">
+                            <h3>Total Listings</h3>
+                            <p class="big-number" id="analyticsTotal">0</p>
+                            <span>Active properties</span>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <div class="analytics-icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <div class="analytics-data">
+                            <h3>For Sale</h3>
+                            <p class="big-number" id="analyticsSale">0</p>
+                            <span>Properties on market</span>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <div class="analytics-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="analytics-data">
+                            <h3>For Rent</h3>
+                            <p class="big-number" id="analyticsRent">0</p>
+                            <span>Available rentals</span>
+                        </div>
+                    </div>
+                    
+                    <div class="analytics-card">
+                        <div class="analytics-icon">
+                            <i class="fas fa-chart-simple"></i>
+                        </div>
+                        <div class="analytics-data">
+                            <h3>Average Price</h3>
+                            <p class="big-number" id="analyticsAvgPrice">€0</p>
+                            <span>Across all listings</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-listings">
+                    <h3><i class="fas fa-clock"></i> Recently Added</h3>
+                    <div id="recentListingsList" class="recent-listings-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Business Profile -->
+        <div id="profileTab" class="tab-content">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar-large">
+                        <i class="fas fa-building fa-4x"></i>
+                    </div>
+                    <div class="profile-info-large">
+                        <h2 id="profileBusinessName">Business Name</h2>
+                        <p><i class="fas fa-envelope"></i> <span id="profileEmail">email@example.com</span></p>
+                        <p><i class="fas fa-phone"></i> <span id="profilePhone">Not provided</span></p>
+                        <p><i class="fas fa-map-marker-alt"></i> <span id="profileAddress">Not provided</span></p>
+                    </div>
+                </div>
+                
+                <div class="profile-details-grid">
+                    <div class="detail-card">
+                        <i class="fas fa-id-card"></i>
+                        <h3>License Number</h3>
+                        <p id="profileLicense">Not provided</p>
+                    </div>
+                    <div class="detail-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Account Status</h3>
+                        <p id="profileStatus" class="status-badge">Pending</p>
+                    </div>
+                    <div class="detail-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>Member Since</h3>
+                        <p id="profileJoined">Not available</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Property Detail Modal -->
+    <div id="propertyDetailModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modalPropertyTitle">Property Details</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modalPropertyContent"></div>
+        </div>
+    </div>
+
+    <script src="./js/dashboard.js"></script>
+</body>
+</html>

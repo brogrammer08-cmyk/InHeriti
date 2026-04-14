@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InHeriti</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="icon" type="image/png" href="./images/logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+<section class="hero">
+    <nav class="navbar">
+      <div class="logo">
+        <img src="./images/logo.png" alt="InHeriti Logo" class="logo-img">
+        InHeriti
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="main.html" class="active">Home</a></li>
+        <li><a href="properties.html">Properties</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <details class="auth-menu">
+        <summary class="auth-menu-toggle" aria-label="Open account menu">
+          <i class="fas fa-bars"></i>
+        </summary>
+        <div class="auth-menu-dropdown">
+          <a href="admin.html" class="auth-link admin-only-link" hidden>Admin Panel</a>
+          <a href="dashboard.html" class="auth-link logged-in-only-link" hidden>Dashboard</a>
+          <a href="login.html" class="auth-link">Login</a>
+          <a href="register.html" class="auth-link auth-link-primary">Register</a>
+        </div>
+      </details>
+    </nav>
+
+    <div class="hero-content">
+      <p class="hero-kicker">Find Your Next Home With Confidence</p>
+      <h1>Premium Properties Curated for Your Lifestyle</h1>
+      <p class="hero-description">
+        Explore verified homes and investment opportunities in the best neighborhoods.
+        Simple search, trusted listings, and support from first click to final key.
+      </p>
+
+      <div class="hero-actions">
+        <a href="properties.html" class="hero-btn hero-btn-primary">Browse Properties</a>
+        <a href="contact.html" class="hero-btn hero-btn-outline">Talk to an Agent</a>
+      </div>
+    </div>
+
+    <div class="search-box">
+      <input type="text" placeholder="Search properties, locations, or keywords...">
+      <button><i class="fas fa-search"></i> Search Property</button>
+    </div>
+  </section>
+<section class="quote">
+<p>“Behind every property, there is a relationship founded on integrity and trust.”</p>
+</section>
+<section class="card-section">
+  <div class="cards-container">
+    <h2>Featured Properties</h2>
+    <div class="featured-carousel-actions">
+      <a href="properties.html" class="hero-btn hero-btn-outline featured-carousel-cta">View all properties</a>
+    </div>
+    <div class="featured-carousel">
+      <div class="featured-carousel-viewport">
+        <div class="featured-carousel-track" id="featuredCarouselTrack"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>InHeriti</h3>
+      <p>Your trusted partner in finding the perfect property. Making real estate dreams come true since 2010.</p>
+    </div>
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="properties.html">Properties</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Newsletter</h3>
+      <p>Subscribe for property updates</p>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Your email" aria-label="Email for newsletter">
+        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 InHeriti Real Estate. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="./js/auth-menu.js"></script>
+<script src="./js/main.js"></script>
+</body>
+</html>
