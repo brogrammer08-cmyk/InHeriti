@@ -45,12 +45,38 @@ const fallbackFeaturedProperties = [
 
 document.addEventListener('DOMContentLoaded', () => {
   const track = document.getElementById('featuredCarouselTrack');
+  setupHomeSearch();
   if (!track) return;
 
   const properties = getFeaturedProperties();
   renderFeaturedCards(track, properties);
   startAutoCarousel(track);
 });
+
+function setupHomeSearch() {
+  const searchBox = document.querySelector('.search-box');
+  if (!searchBox) return;
+
+  const searchInput = searchBox.querySelector('input[type="text"]');
+  const searchButton = searchBox.querySelector('button');
+  if (!searchInput || !searchButton) return;
+
+  const submitSearch = () => {
+    const term = (searchInput.value || '').trim();
+    const targetUrl = term
+      ? `properties.html?search=${encodeURIComponent(term)}`
+      : 'properties.html';
+    window.location.href = targetUrl;
+  };
+
+  searchButton.addEventListener('click', submitSearch);
+  searchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      submitSearch();
+    }
+  });
+}
 
 function getFeaturedProperties() {
   try {
@@ -87,7 +113,7 @@ function renderFeaturedCards(track, properties) {
     const beds = Number(property.bedrooms) || 0;
     const baths = Number(property.bathrooms) || 0;
     const size = Number(property.squareMeters) || 0;
-    const badge = property.listingType === 'for-rent' ? 'For Rent' : 'Featured';
+    const badge = property.listingType === 'for-rent' ? 'For Rent' : 'For Sale';
 
     return `
       <article class="property-card">

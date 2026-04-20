@@ -5,11 +5,25 @@ let allProperties = [];
 let filteredProperties = [];
 let currentPage = 1;
 const itemsPerPage = 9;
+let searchTerm = '';
+let searchTermNormalized = '';
 
 document.addEventListener('DOMContentLoaded', function() {
+    initializeSearchTermFromUrl();
     loadProperties();
     setupEventListeners();
 });
+
+function initializeSearchTermFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    searchTerm = (params.get('search') || '').trim();
+    searchTermNormalized = searchTerm.toLowerCase();
+
+    const searchInput = document.getElementById('propertiesSearchInput');
+    if (searchInput) {
+        searchInput.value = searchTerm;
+    }
+}
 
 function loadProperties() {
     const storedProperties = localStorage.getItem('inheriti_properties');
@@ -26,6 +40,20 @@ function loadProperties() {
 }
 
 function setupEventListeners() {
+    const searchBtn = document.getElementById('propertiesSearchBtn');
+    const searchInput = document.getElementById('propertiesSearchInput');
+    if (searchBtn) {
+        searchBtn.addEventListener('click', submitPageSearch);
+    }
+    if (searchInput) {
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                submitPageSearch();
+            }
+        });
+    }
+
     // Apply filters button
     const applyBtn = document.getElementById('applyFiltersBtn');
     if (applyBtn) {
@@ -106,8 +134,34 @@ function closeAllModals() {
     document.body.style.overflow = '';
 }
 
+function submitPageSearch() {
+    const searchInput = document.getElementById('propertiesSearchInput');
+    if (!searchInput) return;
+
+    searchTerm = (searchInput.value || '').trim();
+    searchTermNormalized = searchTerm.toLowerCase();
+    updateSearchQueryInUrl();
+    applyFilters();
+}
+
+function updateSearchQueryInUrl() {
+    const url = new URL(window.location.href);
+
+    if (searchTerm) {
+        url.searchParams.set('search', searchTerm);
+    } else {
+        url.searchParams.delete('search');
+    }
+
+    window.history.replaceState({}, '', url.toString());
+}
+
 function applyFilters() {
     let results = [...allProperties];
+
+    if (searchTermNormalized) {
+        results = results.filter((property) => propertyMatchesSearch(property, searchTermNormalized));
+    }
     
     // Filter by listing type
     const forSale = document.getElementById('filterForSale')?.checked;
@@ -226,7 +280,7 @@ function renderProperties() {
             <div class="empty-state">
                 <i class="fas fa-home"></i>
                 <h3>No properties found</h3>
-                <p>Try adjusting your filters or check back later</p>
+                <p>${searchTerm ? `No results for "${escapeHtml(searchTerm)}". Try another keyword or adjust filters.` : 'Try adjusting your filters or check back later'}</p>
             </div>
         `;
         return;
@@ -429,6 +483,19 @@ function formatPrice(price) {
         currency: 'EUR',
         minimumFractionDigits: 0
     }).format(price);
+}
+
+function propertyMatchesSearch(property, term) {
+    const searchFields = [
+        property.name,
+        property.location,
+        property.type,
+        property.description,
+        property.businessName,
+        property.listingType === 'for-sale' ? 'for sale' : 'for rent'
+    ];
+
+    return searchFields.some((field) => String(field || '').toLowerCase().includes(term));
 }
 
 function escapeHtml(text) {
