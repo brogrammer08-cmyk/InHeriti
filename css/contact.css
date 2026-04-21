@@ -332,6 +332,85 @@
 }
 
 /* Responsive Design */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet specific adjustments */
+  .contact-header h1 {
+    font-size: 42px;
+  }
+  
+  .contact-header p {
+    font-size: 17px;
+  }
+  
+  .contact-info-section,
+  .faq-section {
+    padding: 60px 15px;
+  }
+  
+  .contact-container {
+    padding: 40px;
+    gap: 40px;
+  }
+  
+  .contact-info h2,
+  .contact-form h2 {
+    font-size: 28px;
+  }
+  
+  .info-item {
+    padding: 18px;
+    gap: 18px;
+  }
+  
+  .info-item h3 {
+    font-size: 17px;
+  }
+  
+  .info-item p {
+    font-size: 14px;
+  }
+  
+  .social-icons a {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 11px 14px;
+  }
+  
+  .submit-btn {
+    padding: 14px 28px;
+  }
+  
+  .faq-section h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+  
+  .faq-container {
+    gap: 25px;
+  }
+  
+  .faq-item {
+    padding: 25px;
+  }
+  
+  .faq-item h3 {
+    font-size: 17px;
+  }
+  
+  .contact-footer {
+    padding: 50px 15px 15px;
+  }
+  
+  .footer-content {
+    gap: 40px;
+  }
+}
+
 @media (max-width: 992px) {
   .contact-container {
     grid-template-columns: 1fr;
@@ -375,5 +454,147 @@
   .map-section h2,
   .faq-section h2 {
     font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-hero {
+    min-height: auto;
+    padding: 12px 10px 20px;
+  }
+
+  .contact-header {
+    position: static;
+    transform: none;
+    margin: 20px auto 0;
+    padding: 0 10px;
+  }
+
+  .contact-header h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .contact-header p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .contact-info-section,
+  .faq-section {
+    padding: 30px 10px;
+  }
+
+  .contact-container {
+    padding: 20px;
+    gap: 30px;
+  }
+
+  .contact-info h2,
+  .contact-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .contact-info > p {
+    margin-bottom: 25px;
+    font-size: 14px;
+  }
+
+  .info-item {
+    padding: 15px;
+    margin-bottom: 20px;
+    gap: 15px;
+  }
+
+  .info-item i {
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+
+  .info-item h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .info-item p {
+    font-size: 14px;
+  }
+
+  .social-links {
+    margin-top: 25px;
+  }
+
+  .social-icons {
+    gap: 12px;
+  }
+
+  .social-icons a {
+    width: 40px;
+    height: 40px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 10px 12px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .form-group.checkbox {
+    align-items: flex-start;
+  }
+
+  .submit-btn {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+
+  .faq-section h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .faq-container {
+    gap: 20px;
+  }
+
+  .faq-item {
+    padding: 20px;
+  }
+
+  .faq-item h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .faq-item p {
+    font-size: 14px;
+  }
+
+  .contact-footer {
+    padding: 40px 10px 15px;
+  }
+
+  .footer-content {
+    gap: 25px;
+  }
+
+  .footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form input {
+    margin-bottom: 10px;
   }
 }
