@@ -647,9 +647,167 @@
     }
 }
 
+@media (min-width: 769px) and (max-width: 1100px) {
+    .properties-hero {
+        padding: 16px 20px 44px;
+    }
+
+    .properties-hero .hero-content {
+        margin: 36px 0 0 36px;
+        max-width: 700px;
+    }
+
+    .properties-hero h1 {
+        font-size: clamp(34px, 4.4vw, 40px);
+        line-height: 1.2;
+    }
+
+    .properties-hero p {
+        font-size: 17px;
+    }
+
+    .properties-search-box {
+        max-width: 640px;
+    }
+
+    .properties-search-box input {
+        font-size: 14px;
+        padding: 13px 14px;
+    }
+
+    .properties-search-box button {
+        padding: 13px 16px;
+    }
+
+    .properties-container {
+        max-width: 1100px;
+        grid-template-columns: 250px 1fr;
+        gap: 20px;
+        padding: 30px 18px;
+    }
+
+    .filters-sidebar {
+        padding: 16px;
+        top: 80px;
+    }
+
+    .filters-sidebar h3 {
+        font-size: 16px;
+    }
+
+    .filter-section {
+        margin-bottom: 14px;
+    }
+
+    .properties-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-bottom: 28px;
+    }
+
+    .property-image {
+        height: 186px;
+    }
+
+    .property-info {
+        padding: 14px;
+    }
+
+    .property-title {
+        font-size: 15px;
+    }
+
+    .property-price {
+        font-size: 17px;
+    }
+
+    .results-header {
+        margin-bottom: 18px;
+        gap: 12px;
+    }
+
+    .sort-options label {
+        font-size: 13px;
+    }
+
+    .sort-options select {
+        min-width: 180px;
+    }
+}
+
 @media (max-width: 768px) {
+    .properties-container {
+        padding: 24px 14px 30px;
+        gap: 16px;
+    }
+
+    .filters-sidebar {
+        padding: 16px;
+        border-radius: 14px;
+        margin-bottom: 8px;
+    }
+
+    .filter-section {
+        margin-bottom: 14px;
+    }
+
+    .btn-apply-filters, .btn-reset-filters {
+        padding: 11px;
+        font-size: 14px;
+    }
+
+    .results-header {
+        margin-bottom: 16px;
+        gap: 10px;
+    }
+
+    .results-count {
+        font-size: 13px;
+    }
+
+    .sort-options {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .sort-options label {
+        font-size: 13px;
+    }
+
+    .sort-options select {
+        width: 62%;
+        min-width: 170px;
+    }
+
     .properties-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 26px;
+    }
+
+    .property-card {
+        border-radius: 14px;
+    }
+
+    .property-image {
+        height: 190px;
+    }
+
+    .property-info {
+        padding: 14px;
+    }
+
+    .property-title {
+        font-size: 15px;
+    }
+
+    .property-price {
+        font-size: 17px;
+    }
+
+    .property-details {
+        gap: 10px;
+        font-size: 11px;
     }
     
     .property-detail-grid {
@@ -685,26 +843,120 @@
     }
     
     .properties-hero {
-        padding: 12px 20px 40px;
+        padding: 12px 14px 28px;
     }
 
     .properties-hero .hero-content {
-        margin-top: 30px;
+        margin: 20px 0 0;
         text-align: center;
+        max-width: 100%;
     }
 
     .properties-search-box {
         flex-direction: column;
         max-width: 100%;
+        margin-top: 16px;
+        gap: 8px;
+    }
+
+    .properties-search-box input,
+    .properties-search-box button {
+        width: 100%;
+    }
+
+    .properties-search-box input {
+        padding: 12px 14px;
+        font-size: 14px;
     }
 
     .properties-search-box button {
-        width: 100%;
         justify-content: center;
+        padding: 12px 14px;
+        font-size: 14px;
     }
     
     .properties-hero h1 {
-        font-size: 28px;
+        font-size: clamp(28px, 8vw, 34px);
+        line-height: 1.2;
+    }
+
+    .properties-hero p {
+        font-size: 15px;
+        line-height: 1.45;
+    }
+
+    .pagination {
+        gap: 10px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    .pagination button {
+        flex: 1;
+        min-width: 130px;
+        padding: 10px 12px;
+    }
+
+    #pageInfo {
+        width: 100%;
+        text-align: center;
+        order: -1;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .properties-container {
+        padding: 18px 10px 24px;
+    }
+
+    .filters-sidebar {
+        padding: 14px;
+    }
+
+    .price-range, .size-range {
+        gap: 6px;
+    }
+
+    .price-range input, .size-range input {
+        padding: 7px 6px;
+        font-size: 11px;
+    }
+
+    .properties-hero {
+        padding: 10px 10px 22px;
+    }
+
+    .properties-hero h1 {
+        font-size: clamp(24px, 8.5vw, 30px);
+    }
+
+    .properties-hero p {
+        font-size: 14px;
+    }
+
+    .properties-search-box {
+        margin-top: 14px;
+    }
+
+    .property-image {
+        height: 176px;
+    }
+
+    .property-info {
+        padding: 12px;
+    }
+
+    .modal-header {
+        padding: 14px 16px;
+    }
+
+    .modal-header h2 {
+        font-size: 16px;
+    }
+
+    .modal-body {
+        padding: 12px;
     }
 }
 
