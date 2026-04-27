@@ -80,6 +80,15 @@
                     <p>New This Week</p>
                 </div>
             </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalProperties">0</h3>
+                    <p>Total Properties</p>
+                </div>
+            </div>
         </div>
 
         <!-- Action Bar -->
@@ -136,6 +145,40 @@
             <button id="prevPage" disabled><i class="fas fa-chevron-left"></i> Previous</button>
             <span id="pageInfo">Page 1 of 1</span>
             <button id="nextPage" disabled>Next <i class="fas fa-chevron-right"></i></button>
+        </div>
+
+        <div class="properties-section">
+            <div class="section-header">
+                <h2><i class="fas fa-building"></i> Property Listings</h2>
+            </div>
+            <div class="users-table-container">
+                <table class="users-table" id="propertiesTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Property Name</th>
+                            <th>Owner Email</th>
+                            <th>Type</th>
+                            <th>Location</th>
+                            <th>Price</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="propertiesTableBody">
+                        <tr>
+                            <td colspan="8" class="loading-row">
+                                <i class="fas fa-spinner fa-spin"></i> Loading properties...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination" id="propertiesPagination">
+                <button id="prevPropertiesPage" disabled><i class="fas fa-chevron-left"></i> Previous</button>
+                <span id="propertiesPageInfo">Page 1 of 1</span>
+                <button id="nextPropertiesPage" disabled>Next <i class="fas fa-chevron-right"></i></button>
+            </div>
         </div>
     </div>
 

@@ -241,6 +241,23 @@
     margin-bottom: 20px;
 }
 
+.properties-section {
+    margin-top: 40px;
+}
+
+.properties-section .section-header {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.properties-section .section-header h2 {
+    font-size: 22px;
+    color: #0f5f5c;
+    margin: 0;
+}
+
 .users-table {
     width: 100%;
     border-collapse: collapse;

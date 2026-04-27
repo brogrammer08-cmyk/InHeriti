@@ -2,9 +2,12 @@
 // Admin Panel JavaScript
 
 let allUsers = [];
+let allProperties = [];
 let currentFilter = 'all';
 let currentPage = 1;
+let propertyCurrentPage = 1;
 const itemsPerPage = 10;
+const propertyItemsPerPage = 10;
 
 // Wait for DOM to load
 document.addEventListener('DOMContentLoaded', function() {
@@ -13,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     loadUsers();
+    loadProperties();
     setupEventListeners();
 });
 
@@ -52,7 +56,10 @@ function setupEventListeners() {
     // Refresh button
     const refreshBtn = document.getElementById('refreshBtn');
     if (refreshBtn) {
-        refreshBtn.addEventListener('click', loadUsers);
+        refreshBtn.addEventListener('click', function() {
+            loadUsers();
+            loadProperties();
+        });
     }
     
     // Logout button
@@ -113,6 +120,26 @@ function setupEventListeners() {
             if (currentPage < totalPages) {
                 currentPage++;
                 renderUsersTable();
+            }
+        });
+    }
+
+    const prevPropertiesBtn = document.getElementById('prevPropertiesPage');
+    const nextPropertiesBtn = document.getElementById('nextPropertiesPage');
+    if (prevPropertiesBtn) {
+        prevPropertiesBtn.addEventListener('click', () => {
+            if (propertyCurrentPage > 1) {
+                propertyCurrentPage--;
+                renderPropertiesTable();
+            }
+        });
+    }
+    if (nextPropertiesBtn) {
+        nextPropertiesBtn.addEventListener('click', () => {
+            const totalPages = Math.ceil(allProperties.length / propertyItemsPerPage);
+            if (propertyCurrentPage < totalPages) {
+                propertyCurrentPage++;
+                renderPropertiesTable();
             }
         });
     }
@@ -179,6 +206,119 @@ function updateStats() {
     document.getElementById('pendingUsers').textContent = pendingUsers;
     document.getElementById('verifiedUsers').textContent = verifiedUsers;
     document.getElementById('newThisWeek').textContent = newThisWeek;
+}
+
+// ============================================
+// Load Properties from localStorage
+// ============================================
+function loadProperties() {
+    try {
+        const propertiesJSON = localStorage.getItem('inheriti_properties');
+        allProperties = propertiesJSON ? JSON.parse(propertiesJSON) : [];
+    } catch (error) {
+        console.error('Error loading properties:', error);
+        allProperties = [];
+    }
+
+    propertyCurrentPage = 1;
+    updatePropertyStats();
+    renderPropertiesTable();
+}
+
+// ============================================
+// Update Property Stats
+// ============================================
+function updatePropertyStats() {
+    const totalProperties = allProperties.length;
+    document.getElementById('totalProperties').textContent = totalProperties;
+}
+
+// ============================================
+// Render Properties Table
+// ============================================
+function renderPropertiesTable() {
+    const tbody = document.getElementById('propertiesTableBody');
+    if (!tbody) return;
+
+    if (!allProperties || allProperties.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" style="text-align: center; padding: 40px;">
+                    <i class="fas fa-inbox"></i> No properties found
+                </td>
+            </tr>
+        `;
+        updatePropertyPagination(0);
+        return;
+    }
+
+    const totalPages = Math.ceil(allProperties.length / propertyItemsPerPage);
+    if (propertyCurrentPage > totalPages) {
+        propertyCurrentPage = totalPages;
+    }
+
+    const startIndex = (propertyCurrentPage - 1) * propertyItemsPerPage;
+    const endIndex = startIndex + propertyItemsPerPage;
+    const paginatedProperties = allProperties.slice(startIndex, endIndex);
+
+    tbody.innerHTML = paginatedProperties.map((property, index) => `
+        <tr>
+            <td>${startIndex + index + 1}</td>
+            <td>${property.name || 'N/A'}</td>
+            <td>${property.userEmail || property.ownerEmail || 'N/A'}</td>
+            <td>${property.listingType === 'for-rent' ? 'Rent' : 'Sale'}</td>
+            <td>${property.location || 'N/A'}</td>
+            <td>€${property.price ? Number(property.price).toLocaleString() : '0'}</td>
+            <td>${property.createdAt ? new Date(property.createdAt).toLocaleDateString() : 'N/A'}</td>
+            <td class="action-buttons-cell">
+                <button class="btn-delete" onclick="deleteProperty('${property.id}')">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+
+    updatePropertyPagination(totalPages);
+}
+
+// ============================================
+// Update Property Pagination UI
+// ============================================
+function updatePropertyPagination(totalPages) {
+    const prevBtn = document.getElementById('prevPropertiesPage');
+    const nextBtn = document.getElementById('nextPropertiesPage');
+    const pageInfo = document.getElementById('propertiesPageInfo');
+
+    if (prevBtn) {
+        prevBtn.disabled = propertyCurrentPage === 1;
+    }
+    if (nextBtn) {
+        nextBtn.disabled = propertyCurrentPage === totalPages || totalPages === 0;
+    }
+    if (pageInfo) {
+        pageInfo.textContent = `Page ${propertyCurrentPage} of ${totalPages || 1}`;
+    }
+}
+
+// ============================================
+// Delete Property
+// ============================================
+window.deleteProperty = function(propertyId) {
+    if (!confirm('⚠️ Are you sure you want to delete this property? This action cannot be undone.')) {
+        return;
+    }
+
+    const property = allProperties.find(p => p.id === propertyId);
+    if (!property) {
+        showToast('Property not found', 'error');
+        return;
+    }
+
+    allProperties = allProperties.filter(p => p.id !== propertyId);
+    localStorage.setItem('inheriti_properties', JSON.stringify(allProperties, null, 2));
+    renderPropertiesTable();
+    updatePropertyStats();
+    showToast(`${property.name || 'Property'} deleted successfully`, 'success');
 }
 
 // ============================================
